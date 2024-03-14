@@ -617,6 +617,20 @@ fi
 truncate -s 3000 $EMU_PARAM_DIR/eth_hw_counters
 
 
+###################################
+#        Get the product name     #
+###################################
+update_product_name=false
+if [ $update_product_name = false ]; then
+	product_name=$(dmidecode | grep -i "Product Name" | cut -d':' -f2- | head -n 1)
+	if [ -n "$product_name" ]; then
+	  echo $product_name> $EMU_PARAM_DIR/product_name
+	  update_product_name=true
+	  echo "Product Name: $product_name"
+	  truncate -s 64 $EMU_PARAM_DIR/product_name
+	fi
+fi
+
 # We don't want to update the FRU data as often as the temp values
 # or the link status for 2 reasons:
 # - The FRUs are not really susceptible to change unless the user makes changes directly to HW
@@ -636,7 +650,6 @@ if [ "$t" = "$fru_timer" ]; then
 	lscpu > $EMU_PARAM_DIR/cpuinfo
 	cat /proc/cpuinfo >> $EMU_PARAM_DIR/cpuinfo
 	truncate -s 6200 $EMU_PARAM_DIR/cpuinfo
-
 
 	##########################################
 	#          Get EMMC info                 #

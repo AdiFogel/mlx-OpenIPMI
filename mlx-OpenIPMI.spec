@@ -40,8 +40,8 @@ Group: System Environment/Base
 Source: %{_name}-%{_version}.tar.gz
 BuildRoot: %{?build_root:%{build_root}}%{!?build_root:/var/tmp/OFED}
 Vendor: Mellanox Technologies
-BuildRequires: popt-devel
-BuildRequires: ncurses-devel
+#BuildRequires: popt-devel
+#BuildRequires: ncurses-devel
 Requires: rasdaemon
 Provides: OpenIPMI
 Provides: OpenIPMI-libs
